@@ -538,11 +538,19 @@
     .trial-confirm-footer .find-primary { margin: 0; }
     .trial-note-counter { margin-top: 5px; color: #8c96a0; font-size: 11px; text-align: right; }
     .trial-textbook-card { margin-top: 12px; padding: 14px; border: 1px solid #e4e9ee; border-radius: 16px; background: #fff; }
-    .trial-textbook-card h4 { margin: 0; color: #344054; font-size: 13px; line-height: 1.5; }
-    .trial-textbook-name { margin-top: 9px; color: #172027; font-size: 14px; font-weight: 800; line-height: 1.45; }
-    .trial-own-textbook-option { width: 100%; margin-top: 8px; padding: 5px 2px; display: flex; align-items: flex-start; gap: 8px; border: 0; color: #667085; background: transparent; text-align: left; font-size: 11px; line-height: 1.45; cursor: pointer; }
-    .trial-own-textbook-option input { width: 15px; height: 15px; flex: 0 0 auto; margin: 1px 0 0; accent-color: #2f80ed; }
-    .trial-textbook-description { margin: 7px 0 0; color: #667085; font-size: 12px; line-height: 1.55; }
+    .trial-textbook-card h4 { margin: 0 0 10px; color: #344054; font-size: 13px; line-height: 1.5; }
+    .trial-textbook-choice { width: 100%; min-height: 76px; padding: 11px; display: flex; align-items: center; gap: 11px; border: 1.5px solid #dde3e8; border-radius: 15px; color: #172027; background: #fff; text-align: left; cursor: pointer; }
+    .trial-textbook-choice + .trial-textbook-choice { margin-top: 8px; }
+    .trial-textbook-choice.active { border-color: #2f80ed; background: #eef6ff; }
+    .trial-textbook-choice-icon { width: 48px; height: 48px; flex: 0 0 48px; display: grid; place-items: center; border-radius: 14px; color: #2f80ed; background: #eaf4ff; font-size: 18px; font-weight: 900; }
+    .trial-textbook-choice.active .trial-textbook-choice-icon { color: #fff; background: #2f80ed; }
+    .trial-textbook-choice-copy { min-width: 0; display: grid; gap: 4px; }
+    .trial-textbook-choice-copy strong { font-size: 14px; line-height: 1.4; }
+    .trial-textbook-choice-copy small { color: #8c96a0; font-size: 11px; line-height: 1.45; }
+    .trial-preferred-name-input { width: 100%; min-height: 48px; padding: 0 12px; border: 1px solid #dce3ea; border-radius: 12px; color: #172027; background: #fff; font: inherit; }
+    .paid-preferred-name-options { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 7px; }
+    .paid-preferred-name-option { min-height: 34px; padding: 6px 12px; border: 1px solid #dce3ea; border-radius: 999px; color: #344054; background: #fff; font-size: 12px; font-weight: 650; cursor: pointer; }
+    .paid-preferred-name-option.active { border-color: #2f80ed; color: #1d63b9; background: #eef6ff; }
     .find-flow-note { margin-top: 12px; padding: 11px 12px; border-radius: 12px; color: #5b6775; background: #f4f7fb; font-size: 11px; line-height: 1.55; }
     .find-current-course-note { margin: 12px 0 0; padding: 11px 12px; display: grid; gap: 4px; border: 1px solid #dcecff; border-radius: 12px; color: #1d63b9; background: #eef6ff; font-size: 11px; line-height: 1.45; }
     .find-current-course-note strong { font-size: 12px; }
@@ -1291,19 +1299,6 @@
             <span class="row-right"><span class="menu-right-status">已开启</span><span class="row-chevron">›</span></span>
           </button>
 
-          <button class="settings-row" type="button" data-toast="语言切换将在后续版本开放">
-            <span class="menu-left">
-              <span class="icon-slot gray" aria-hidden="true">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-label="语言"><path d="M4 5h7v2H8.9c.4 2 1.6 3.8 3.1 5.1.9-.8 1.7-1.8 2.3-2.9H11V7h3.8c.2-.5.3-1 .4-1.5H17c-.1.6-.2 1.2-.4 1.8H20v2h-2.1c-.7 1.8-1.7 3.4-3 4.7 1.1.8 2.4 1.5 3.9 1.9l-.8 1.8c-1.8-.6-3.4-1.4-4.8-2.4-1.4 1-3 1.8-4.8 2.4l-.8-1.8c1.5-.4 2.8-1.1 3.9-1.9A12.2 12.2 0 0 1 8.1 9H4V5z"></path></svg>
-              </span>
-              <span class="row-text">
-                <span class="row-title">语言</span>
-                <span class="row-sub">当前使用中文</span>
-              </span>
-            </span>
-            <span class="row-right"><span class="status-btn lang">中文</span><span class="row-chevron">›</span></span>
-          </button>
-
           <button class="settings-row" type="button" id="policyEntryButton">
             <span class="menu-left">
               <span class="icon-slot gray" aria-hidden="true">
@@ -1427,41 +1422,6 @@
             </div>
             <div class="static-row-right"><span class="static-check">已开启</span><span class="row-chevron">›</span></div>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="static-page" id="languagePage" aria-labelledby="languagePageTitle" aria-hidden="true">
-      <div class="static-page-inner">
-        <div class="static-page-top">
-          <button class="static-page-back" type="button" id="closeLanguagePageButton" aria-label="返回">‹</button>
-          <div style="flex:1; min-width:0;">
-            <h2 class="static-page-title" id="languagePageTitle">语言</h2>
-            <p class="static-page-subtitle">APP 默认阿拉伯语，可切换英语。</p>
-          </div>
-          <span style="width:38px;"></span>
-        </div>
-        <div class="static-panel">
-          <button class="static-row" type="button" data-language-option="ar">
-            <div class="static-row-left">
-              <span class="static-row-icon">ا</span>
-              <div>
-                <span class="static-row-title">العربية</span>
-                <span class="static-row-sub">当前使用阿拉伯语</span>
-              </div>
-            </div>
-            <div class="static-row-right"><span class="static-check">已选中</span></div>
-          </button>
-          <button class="static-row" type="button" data-language-option="en">
-            <div class="static-row-left">
-              <span class="static-row-icon">A</span>
-              <div>
-                <span class="static-row-title">English</span>
-                <span class="static-row-sub">切换为英语</span>
-              </div>
-            </div>
-            <div class="static-row-right"><span class="row-chevron">›</span></div>
-          </button>
         </div>
       </div>
     </section>
@@ -1795,8 +1755,6 @@
         <div class="demo-group-title">基础演示状态</div>
         <div class="demo-subsection-label">登录状态</div>
         <div class="demo-options" data-demo-group="loginState"></div>
-        <div class="demo-subsection-label">语言</div>
-        <div class="demo-options" data-demo-group="language"></div>
       </div>
       <div class="demo-group">
         <div class="demo-group-title">Faheem 我的请求</div>
@@ -1850,7 +1808,6 @@
     let accountName = localStorage.getItem('academy-app-v2-account-name') || '莫娜';
     let activePackageId = 1;
     let pageStack = [];
-    let selectedLanguage = localStorage.getItem('academy-app-v2-language') || 'ar';
     let isLoggedIn = localStorage.getItem('academy-app-v2-login-state') !== '0';
     let loginMode = 'code';
     let loginPolicyAccepted = false;
@@ -1901,6 +1858,8 @@
     let faheemFindTime = '11:00';
     let faheemTrialDateKey = '';
     let faheemFindTeacherNote = '';
+    let faheemPreferredName = '';
+    let faheemPreferredNameContext = '';
     let faheemTrialOwnTextbook = false;
     let faheemFindRecurring = false;
     let faheemFindWeeks = '4周';
@@ -1944,7 +1903,6 @@
     const coursePage = document.getElementById('coursePage');
     const usagePage = document.getElementById('usagePage');
     const permissionPage = document.getElementById('permissionPage');
-    const languagePage = document.getElementById('languagePage');
     const accountNamePage = document.getElementById('accountNamePage');
     const policyPage = document.getElementById('policyPage');
     const ratingPage = document.getElementById('ratingPage');
@@ -1980,7 +1938,6 @@
     const demoGroups = {
       loginState: document.querySelector('[data-demo-group="loginState"]'),
       bookingMode: document.querySelector('[data-demo-group="bookingMode"]'),
-      language: document.querySelector('[data-demo-group="language"]'),
       faheemFind: document.querySelector('[data-demo-group="faheemFindPageShortcuts"]'),
       schedulePageShortcuts: document.querySelector('[data-demo-group="schedulePageShortcuts"]'),
       faheemFindProfile: document.querySelector('[data-demo-group="faheemFindProfile"]'),
@@ -2056,7 +2013,6 @@
     function stageLabel(stage) { return stage === '小学' ? '小学' : stage === '初中' ? '初中' : '高中'; }
     function persist() { localStorage.setItem('academy-app-v2-students', JSON.stringify(students)); localStorage.setItem('academy-app-v2-current-student', String(selectedStudentId)); }
     function persistAccountName() { localStorage.setItem('academy-app-v2-account-name', accountName); }
-    function persistLanguage() { localStorage.setItem('academy-app-v2-language', selectedLanguage); }
     function persistBookingMode() { localStorage.setItem('academy-app-v2-booking-mode', bookingMode); }
     function persistTrialPointGrantCount() { localStorage.setItem('academy-trial-point-grant-count-v1', String(trialPointGrantCount)); }
     function persistFaheemFindStates() {
@@ -2084,7 +2040,6 @@
       coursePage.classList.toggle('open', pageStack[pageStack.length - 1] === 'course');
       usagePage.classList.toggle('open', pageStack[pageStack.length - 1] === 'usage');
       permissionPage.classList.toggle('open', pageStack[pageStack.length - 1] === 'permission');
-      languagePage.classList.toggle('open', pageStack[pageStack.length - 1] === 'language');
       accountNamePage.classList.toggle('open', currentPage === 'account-name');
       policyPage.classList.toggle('open', currentPage === 'policy');
       ratingPage.classList.toggle('open', currentPage === 'rating');
@@ -2102,7 +2057,6 @@
       coursePage.setAttribute('aria-hidden', pageStack[pageStack.length - 1] === 'course' ? 'false' : 'true');
       usagePage.setAttribute('aria-hidden', pageStack[pageStack.length - 1] === 'usage' ? 'false' : 'true');
       permissionPage.setAttribute('aria-hidden', pageStack[pageStack.length - 1] === 'permission' ? 'false' : 'true');
-      languagePage.setAttribute('aria-hidden', pageStack[pageStack.length - 1] === 'language' ? 'false' : 'true');
       accountNamePage.setAttribute('aria-hidden', currentPage === 'account-name' ? 'false' : 'true');
       policyPage.setAttribute('aria-hidden', currentPage === 'policy' ? 'false' : 'true');
       ratingPage.setAttribute('aria-hidden', currentPage === 'rating' ? 'false' : 'true');
@@ -2127,8 +2081,6 @@
     function closeUsagePage() { if (pageStack[pageStack.length - 1] === 'usage') pageStack.pop(); syncPages(); }
     function openPermissionPage() { pageStack = ['permission']; syncPages(); }
     function closePermissionPage() { if (pageStack[pageStack.length - 1] === 'permission') pageStack.pop(); syncPages(); }
-    function openLanguagePage() { pageStack = ['language']; syncPages(); }
-    function closeLanguagePage() { if (pageStack[pageStack.length - 1] === 'language') pageStack.pop(); syncPages(); }
     function renderAccountNamePage() {
       const input = document.getElementById('accountNameInput');
       const saveButton = document.getElementById('saveAccountNameButton');
@@ -2251,7 +2203,7 @@
     function syncNavActive() {
       const current = pageStack[pageStack.length - 1] || 'my';
       const activeMap = {
-        myNav: !pageStack.length || ['student', 'student-form', 'course', 'usage', 'permission', 'language', 'account-name', 'policy', 'rating', 'delete-account'].includes(current),
+        myNav: !pageStack.length || ['student', 'student-form', 'course', 'usage', 'permission', 'account-name', 'policy', 'rating', 'delete-account'].includes(current),
         findCourseNav: (['faheem-find', 'trial-quiz', 'trial-subject', 'trial-time', 'trial-support'].includes(current)) && !(current === 'faheem-find' && faheemFindView === 'textbook' && faheemFindTextbookMode === 'course-detail'),
         scheduleNav: ['faheem-requests', 'faheem-request-subpage'].includes(current),
         scheduleCalendarNav: ['schedule', 'report', 'course-detail'].includes(current) || (current === 'faheem-find' && faheemFindView === 'textbook' && faheemFindTextbookMode === 'course-detail')
@@ -2267,6 +2219,46 @@
 
     function escapeHtml(value) {
       return String(value ?? '').replace(/[&<>'"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[char]);
+    }
+    const preferredNameStorageKey = 'academy-teacher-preferred-names-v1';
+    function preferredNameContextKey() { return JSON.stringify([faheemFindGrade, faheemFindSubject]); }
+    function readPreferredNameStore() {
+      try {
+        const raw = localStorage.getItem(preferredNameStorageKey);
+        if (raw === null) return { byContext: {}, history: ['Mona', 'Sara'] };
+        const stored = JSON.parse(raw || '{}');
+        const byContext = stored && typeof stored.byContext === 'object' && !Array.isArray(stored.byContext) ? stored.byContext : {};
+        const history = Array.isArray(stored?.history) ? stored.history.filter(name => typeof name === 'string' && name.trim()) : [];
+        Object.values(byContext).forEach(name => { if (typeof name === 'string' && name.trim() && !history.includes(name)) history.push(name); });
+        return { byContext, history };
+      } catch { return { byContext: {}, history: [] }; }
+    }
+    function ensurePreferredNameForCurrentContext() {
+      const key = preferredNameContextKey();
+      if (faheemPreferredNameContext !== key) {
+        faheemPreferredName = readPreferredNameStore().byContext[key] || '';
+        faheemPreferredNameContext = key;
+      }
+    }
+    function savePreferredNameForCurrentContext() {
+      ensurePreferredNameForCurrentContext();
+      const store = readPreferredNameStore();
+      const name = faheemPreferredName.trim();
+      if (name) {
+        store.byContext[faheemPreferredNameContext] = name;
+        if (!store.history.includes(name)) store.history.push(name);
+      } else delete store.byContext[faheemPreferredNameContext];
+      localStorage.setItem(preferredNameStorageKey, JSON.stringify(store));
+      return name || 'student';
+    }
+    function renderPaidPreferredNameField() {
+      ensurePreferredNameForCurrentContext();
+      const store = readPreferredNameStore();
+      const hasCurrentName = Boolean(store.byContext[faheemPreferredNameContext]);
+      const suggestions = !hasCurrentName && store.history.length
+        ? `<div class="paid-preferred-name-options" aria-label="已保存的姓名">${store.history.map(name => `<button class="paid-preferred-name-option ${name === faheemPreferredName ? 'active' : ''}" type="button" data-find-action="preferred-name-suggestion" data-find-value="${escapeHtml(name)}" aria-pressed="${name === faheemPreferredName}">${escapeHtml(name)}</button>`).join('')}</div>`
+        : '';
+      return `<label class="find-field-label" for="paidPreferredName">你希望上课时老师如何称呼你（选填）</label><input class="trial-preferred-name-input" id="paidPreferredName" type="text" placeholder="请输入名字" value="${escapeHtml(faheemPreferredName)}">${suggestions}`;
     }
     const faheemFindSubjects = [['英语','Aa'],['阿拉伯语','✎'],['数学','∑']];
     const faheemTextbookOptions = [
@@ -2753,7 +2745,7 @@
       const tutorialRow = faheemFindTutorialSelectedThisBooking
         ? `<div class="find-summary-row"><span>教材类型</span><strong>${escapeHtml(paidTutorialLabel(faheemFindTutorialType || faheemFindTutorialDraft))}</strong></div>`
         : '';
-      return `<div class="booking-v2-page booking-v2-step2-page"><div class="find-flow-head"><div class="find-flow-kicker">预约课程 · 第 3 步，共 3 步</div>${bookingV2StepBars()}<h3 class="find-flow-title">请核对你的约课信息</h3></div><div class="find-form-panel booking-v2-step2-panel"><div class="find-summary-list"><div class="find-summary-row"><span>学校类型</span><strong>${escapeHtml(faheemFindCurriculum)}</strong></div><div class="find-summary-row"><span>年级</span><strong>${escapeHtml(faheemFindGrade)}</strong></div><div class="find-summary-row"><span>科目</span><strong>${escapeHtml(faheemFindSubject)}</strong></div><div class="find-summary-row"><span>课程节数</span><strong>${rows.length} 节</strong></div><div class="find-summary-row"><span>老师偏好</span><strong>${escapeHtml(faheemFindGender)}</strong></div>${tutorialRow}</div><span class="find-field-label">已选择时间</span>${renderBookingV2LessonList()}<div class="booking-v2-note">请核对每节课的日期与时间，确认后发送约课请求。</div></div><div class="booking-v2-sticky-footer"><button class="find-primary" type="button" data-find-action="v2-submit">确认并发送请求</button></div></div>`;
+      return `<div class="booking-v2-page booking-v2-step2-page"><div class="find-flow-head"><div class="find-flow-kicker">预约课程 · 第 3 步，共 3 步</div>${bookingV2StepBars()}<h3 class="find-flow-title">请核对你的约课信息</h3></div><div class="find-form-panel booking-v2-step2-panel"><div class="find-summary-list"><div class="find-summary-row"><span>学校类型</span><strong>${escapeHtml(faheemFindCurriculum)}</strong></div><div class="find-summary-row"><span>年级</span><strong>${escapeHtml(faheemFindGrade)}</strong></div><div class="find-summary-row"><span>科目</span><strong>${escapeHtml(faheemFindSubject)}</strong></div><div class="find-summary-row"><span>课程节数</span><strong>${rows.length} 节</strong></div>${tutorialRow}<div class="find-summary-row"><span>老师偏好</span><strong>${escapeHtml(faheemFindGender)}</strong></div></div>${renderPaidPreferredNameField()}<span class="find-field-label">已选择时间</span>${renderBookingV2LessonList()}<div class="booking-v2-note">请核对每节课的日期与时间，确认后发送约课请求。</div></div><div class="booking-v2-sticky-footer"><button class="find-primary" type="button" data-find-action="v2-submit">确认并发送请求</button></div></div>`;
     }
     function renderFaheemFindBooking() {
       const isPaid = bookingMode === 'paid';
@@ -2761,7 +2753,8 @@
       if (faheemFindStep === 1) return `<div class="find-flow-head"><div class="find-flow-kicker">预约课程 · 第 1 步，共 2 步</div>${findStepBars()}<h3 class="find-flow-title">选择上课日期和时间</h3></div>${faheemTeacherChangeMode ? `<div class="find-current-course-note"><strong>沿用当前课程信息</strong><span>${escapeHtml(faheemFindCurriculum)} · ${escapeHtml(faheemFindGrade)} · ${escapeHtml(faheemFindSubject)}</span></div>` : ''}<div class="find-form-panel">${renderFaheemFindDateTime()}<span class="find-field-label">老师性别</span><div class="find-chip-grid">${['男老师','女老师','不限制'].map(item => `<button class="find-chip ${item === faheemFindGender ? 'active' : ''}" type="button" data-find-action="gender" data-find-value="${item}">${item}</button>`).join('')}</div><span class="find-field-label">上课方式</span><div class="find-chip-grid two"><button class="find-chip ${!faheemFindRecurring ? 'active' : ''}" type="button" data-find-action="recurring" data-find-value="no">单次课程</button><button class="find-chip ${faheemFindRecurring ? 'active' : ''}" type="button" data-find-action="recurring" data-find-value="yes">每周固定</button></div>${faheemFindRecurring ? `<span class="find-field-label">固定周期</span><div class="find-chip-grid two"><button class="find-chip ${faheemFindWeeks === '1周' ? 'active' : ''}" type="button" data-find-action="weeks" data-find-value="1周">1 周</button><button class="find-chip ${faheemFindWeeks === '4周' ? 'active' : ''}" type="button" data-find-action="weeks" data-find-value="4周">4 周</button></div><div class="find-summary-note">每周二 · ${faheemFindWeeks === '4周' ? '4' : '1'} 节课</div>` : ''}<div class="find-flow-note">付费课在本页选择日期、具体时间、老师性别及单次或每周固定。</div></div><button class="find-primary" type="button" data-find-action="next">确认上课信息</button>`;
       if (!isPaid) {
         const dateTime = trialBookingDateTimeLabel();
-        return `<div class="trial-confirm-flow"><div class="find-flow-head"><div class="find-flow-kicker">预约体验课程。第2步/共2步</div>${findStepBars()}</div><h3 class="trial-booking-question">请核对你的约课信息</h3><div class="find-summary-list"><div class="find-summary-row"><span>学校类型</span><strong>${escapeHtml(faheemFindCurriculum)}</strong></div><div class="find-summary-row"><span>年级</span><strong>${escapeHtml(faheemFindGrade)}</strong></div><div class="find-summary-row"><span>科目</span><strong>${escapeHtml(faheemFindSubject)}</strong></div><div class="find-summary-row"><span>上课时间</span><strong>${escapeHtml(dateTime)}</strong></div></div><section class="trial-textbook-card"><h4>根据您的情况，我们为您推荐体验以下教材</h4><div class="trial-textbook-name">${escapeHtml(faheemFindTextbook)}</div><p class="trial-textbook-description">${escapeHtml(faheemFindTextbookRecommendation)}</p></section><label class="trial-own-textbook-option"><input type="checkbox" data-find-action="trial-own-textbook" ${faheemTrialOwnTextbook ? 'checked' : ''}><span>我自己提供教材</span></label><label class="find-field-label" for="trialTeacherNote">给老师的备注（选填）</label><textarea class="find-note-input" id="trialTeacherNote" maxlength="200" placeholder="例如：需要复习第三单元">${escapeHtml(faheemFindTeacherNote)}</textarea><div class="trial-note-counter"><span id="trialTeacherNoteCount">${faheemFindTeacherNote.length}</span>/200</div><div class="trial-confirm-footer"><button class="find-primary" type="button" data-find-action="submit">确认并发送请求</button></div></div>`;
+        ensurePreferredNameForCurrentContext();
+        return `<div class="trial-confirm-flow"><div class="find-flow-head"><div class="find-flow-kicker">预约体验课程。第2步/共2步</div>${findStepBars()}</div><h3 class="trial-booking-question">请核对你的约课信息</h3><div class="find-summary-list"><div class="find-summary-row"><span>学校类型</span><strong>${escapeHtml(faheemFindCurriculum)}</strong></div><div class="find-summary-row"><span>年级</span><strong>${escapeHtml(faheemFindGrade)}</strong></div><div class="find-summary-row"><span>科目</span><strong>${escapeHtml(faheemFindSubject)}</strong></div><div class="find-summary-row"><span>上课时间</span><strong>${escapeHtml(dateTime)}</strong></div></div><section class="trial-textbook-card"><h4>根据您的情况，我们为您推荐体验以下教材</h4><button class="trial-textbook-choice ${faheemTrialOwnTextbook ? '' : 'active'}" type="button" data-find-action="trial-textbook-choice" data-find-value="recommended" aria-pressed="${!faheemTrialOwnTextbook}"><span class="trial-textbook-choice-icon">A</span><span class="trial-textbook-choice-copy"><strong>${escapeHtml(faheemFindTextbook)}</strong><small>${escapeHtml(faheemFindTextbookRecommendation)}</small></span></button><button class="trial-textbook-choice ${faheemTrialOwnTextbook ? 'active' : ''}" type="button" data-find-action="trial-textbook-choice" data-find-value="self" aria-pressed="${faheemTrialOwnTextbook}"><span class="trial-textbook-choice-icon">C</span><span class="trial-textbook-choice-copy"><strong>我自己提供教材</strong><small>上课时使用学生自己提供的教材。</small></span></button></section><label class="find-field-label" for="trialPreferredName">你希望上课时老师如何称呼你（选填）</label><input class="trial-preferred-name-input" id="trialPreferredName" type="text" placeholder="请输入名字" value="${escapeHtml(faheemPreferredName)}"><label class="find-field-label" for="trialTeacherNote">给老师的备注（选填）</label><textarea class="find-note-input" id="trialTeacherNote" maxlength="200" placeholder="例如：需要复习第三单元">${escapeHtml(faheemFindTeacherNote)}</textarea><div class="trial-note-counter"><span id="trialTeacherNoteCount">${faheemFindTeacherNote.length}</span>/200</div><div class="trial-confirm-footer"><button class="find-primary" type="button" data-find-action="submit">确认并发送请求</button></div></div>`;
       }
       const typeLabel = faheemFindRecurring ? `每周固定课程 · ${faheemFindWeeks}` : '单次预约课程';
       const timeLabel = `${faheemFindDate} ${faheemFindTime}`;
@@ -2843,6 +2836,8 @@
       faheemFindStep = 1;
       if (bookingMode === 'trial') {
         faheemFindTeacherNote = '';
+        faheemPreferredName = '';
+        faheemPreferredNameContext = '';
         faheemTrialOwnTextbook = false;
         faheemTrialDateKey = faheemTrialBookingDates()[0]?.key || '';
         faheemFindTime = '';
@@ -3026,6 +3021,7 @@
       const now = new Date();
       const submittedAt = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
       const startAt = trialBookingDateTimeLabel();
+      const teacherPreferredName = savePreferredNameForCurrentContext();
       const id = Math.max(0, ...faheemRequests.map(item => Number(item.id) || 0)) + 1;
       const studentName = currentStudent()?.name || 'student';
       const status = faheemTrialOwnTextbook ? 'accepted' : (['searching', 'accepted', 'closed'].includes(outcome) ? outcome : 'searching');
@@ -3044,6 +3040,7 @@
         submitted: submittedAt,
         unread: assignedTeacher ? 1 : 0,
         crmUserNote: faheemFindTeacherNote.trim(),
+        teacherPreferredName,
         textbookMode: faheemTrialOwnTextbook ? 'self-selected' : 'recommended',
         teacherNoteImSent: false,
         teacherAssignmentRule: faheemTrialOwnTextbook ? '自选教材提交后按现有规则直接分配老师' : '课前2分钟分配老师'
@@ -3077,7 +3074,7 @@
       renderDemoControls();
       return request;
     }
-    function preparePaidFlowRequest() {
+    function preparePaidFlowRequest(teacherPreferredName = null) {
       const item = paidFlowRequest();
       item.status = 'searching';
       item.subject = faheemFindSubject;
@@ -3092,6 +3089,7 @@
       item.tutorialType = bookingMode === 'paid' ? faheemFindTutorialType : '';
       item.textbook = faheemFindTextbook;
       item.crmUserNote = faheemFindTeacherNote.trim();
+      if (teacherPreferredName !== null) item.teacherPreferredName = teacherPreferredName;
       item.teacherNoteImSent = false;
       item.submitted = '2026-10-21 16:10';
       item.unread = 0;
@@ -3718,13 +3716,6 @@
       renderDemoControls();
       showToast(`演示状态已切换至 ${currentStudent().name}`);
     }
-    function setDemoLanguage(lang) {
-      selectedLanguage = lang;
-      persistLanguage();
-      renderAccount();
-      renderDemoControls();
-      showToast(lang === 'ar' ? '已切换为阿拉伯语' : '已切换为英语');
-    }
     function setTrialQuestionnaire(step) { trialQuizStep = step; renderTrialQuizPage(); }
     function openTrialQuizPage() {
       trialQuizStep = 1;
@@ -4234,7 +4225,6 @@
       document.getElementById('accountTitle').textContent = accountName;
       document.querySelector('.profile-avatar').textContent = initials(accountName);
       document.querySelector('.profile-avatar').setAttribute('aria-label', `${accountName}头像`);
-      document.querySelector('[data-toast="语言切换将在后续版本开放"] .status-btn.lang').textContent = selectedLanguage === 'ar' ? '阿语' : 'English';
       renderDemoControls();
     }
     function renderCoursePackages() {
@@ -4316,10 +4306,6 @@
       const bookingModeOptions = [
         { key: 'trial', label: '体验课学员', active: bookingMode === 'trial', hint: '进入体验课选时间流程' },
         { key: 'paid', label: '付费课学员', active: bookingMode === 'paid', hint: '进入付费课选时间、老师和周期流程' }
-      ];
-      const languageOptions = [
-        { key: 'ar', label: '阿拉伯语', active: selectedLanguage === 'ar', hint: '当前默认语言' },
-        { key: 'en', label: '英语', active: selectedLanguage === 'en', hint: '切换为英语界面' }
       ];
       const faheemFindOptions = [
         { key: 'home', pageNo: 'P5.1', label: '找课首页', active: pageStack.at(-1) === 'faheem-find' && faheemFindView === 'home', hint: '学生年级、身份、可用课时与三门科目' },
@@ -4418,7 +4404,6 @@
       `;
       demoGroups.loginState.innerHTML = loginStateOptions.map(item => renderOption(item, 'loginState')).join('');
       demoGroups.bookingMode.innerHTML = bookingModeOptions.map(item => renderOption(item, 'bookingMode')).join('');
-      demoGroups.language.innerHTML = languageOptions.map(item => renderOption(item, 'language')).join('');
       demoGroups.faheemFind.innerHTML = visibleFaheemFindOptions.map(item => renderOption(item, 'faheemFind')).join('');
       demoGroups.schedulePageShortcuts.innerHTML = schedulePageOptions.map(item => renderOption(item, 'schedulePageShortcuts')).join('');
       demoGroups.faheemFindProfile.innerHTML = faheemFindProfileOptions.map(item => renderOption(item, 'faheemFindProfile')).join('');
@@ -4437,7 +4422,7 @@
         付费状态：${bookingMode === 'paid' ? '已付费' : '未付费'}<br>
         体验课点数：${trialPkg ? trialPkg.remaining : 0}<br>
         体验课点数累计自动发放：${trialPointGrantCount}/3 次<br>
-        语言：${selectedLanguage === 'ar' ? '阿拉伯语' : '英语'}<br>
+        APP 正式版语言：阿拉伯语（固定）<br>
         当前页面：${currentFindPage ? `${currentFindPage.code} · ${currentFindPage.title}` : '未打开页面'}<br>
         Faheem 找课路由：${faheemFindView}<br>
         找课前置：${faheemFindProfileState === 'first' ? '首次选择学校类型／年级' : '已选择过学校类型／年级'}<br>
@@ -4458,7 +4443,6 @@
     document.getElementById('closeCoursePageButton').addEventListener('click', () => closeCoursePage());
     document.getElementById('closeUsagePageButton').addEventListener('click', () => closeUsagePage());
     document.getElementById('closePermissionPageButton').addEventListener('click', () => closePermissionPage());
-    document.getElementById('closeLanguagePageButton').addEventListener('click', () => closeLanguagePage());
     document.getElementById('closeAccountNamePageButton').addEventListener('click', closeAccountNamePage);
     document.getElementById('closePolicyPageButton').addEventListener('click', closePolicyPage);
     document.getElementById('closeRatingPageButton').addEventListener('click', closeRatingPage);
@@ -4533,6 +4517,7 @@
       showToast('已退出登录（原型演示）');
     });
     document.addEventListener('input', event => {
+      if (['trialPreferredName', 'paidPreferredName'].includes(event.target.id)) faheemPreferredName = event.target.value;
       if (event.target.id === 'trialTeacherNote') {
         faheemFindTeacherNote = event.target.value.slice(0, 200);
         event.target.value = faheemFindTeacherNote;
@@ -4540,14 +4525,6 @@
         if (counter) counter.textContent = String(faheemFindTeacherNote.length);
       }
     });
-    document.addEventListener('change', event => {
-      if (event.target.matches('[data-find-action="trial-own-textbook"]')) {
-        faheemTrialOwnTextbook = event.target.checked;
-        renderFaheemFindPage(false);
-        renderDemoControls();
-      }
-    });
-
     document.addEventListener('click', event => {
       const usageButton = event.target.closest('[data-open-usage]');
       if (usageButton) openUsagePage(Number(usageButton.dataset.openUsage));
@@ -4601,7 +4578,6 @@
         if (demoAction === 'loginState') setLoginState(demoValue === 'logged-in');
         if (demoAction === 'trialPoints') setTrialPointsState(demoValue === 'positive');
         if (demoAction === 'bookingMode') setBookingMode(demoValue);
-        if (demoAction === 'language') setDemoLanguage(demoValue);
         if (demoAction === 'faheemFindProfile') setFaheemFindProfileState(demoValue);
         if (demoAction === 'faheemFindCourseState') setFaheemFindCourseState(demoValue);
         if (demoAction === 'trialSubmitOutcome') {
@@ -4780,6 +4756,15 @@
           renderFaheemFindPage();
         }
         if (action === 'trial-time') { faheemFindTime = value; renderFaheemFindPage(); }
+        if (action === 'preferred-name-suggestion') {
+          faheemPreferredName = value;
+          renderFaheemFindPage(false);
+        }
+        if (action === 'trial-textbook-choice') {
+          faheemTrialOwnTextbook = value === 'self';
+          renderFaheemFindPage(false);
+          renderDemoControls();
+        }
         if (action === 'recurring') { faheemFindRecurring = value === 'yes'; renderFaheemFindPage(); }
         if (action === 'weeks') { faheemFindWeeks = value; renderFaheemFindPage(); }
         if (action === 'v2-date') {
@@ -4942,7 +4927,8 @@
           if (!rows.length) { showToast('请先选择上课时间'); return; }
           faheemFindDate = formatBookingV2Date(rows[0].date);
           faheemFindTime = `${rows[0].time}${rows.length > 1 ? ` 等 ${rows.length} 节` : ''}`;
-          preparePaidFlowRequest(); openFaheemRequestSubpage('detail', activeFaheemRequestId); renderDemoControls();
+          const teacherPreferredName = savePreferredNameForCurrentContext();
+          preparePaidFlowRequest(teacherPreferredName); openFaheemRequestSubpage('detail', activeFaheemRequestId); renderDemoControls();
         }
         if (action === 'back-booking') { faheemFindView = 'booking'; faheemFindStep = 2; persistFaheemFindView(); renderFaheemFindPage(true); renderDemoControls(); }
         if (action === 'submit-need') { preparePaidFlowRequest(); openFaheemRequestSubpage('detail', activeFaheemRequestId); renderDemoControls(); }
@@ -5088,7 +5074,6 @@
         if (action === 'chat-voice') { showToast('语音输入（原型演示）'); return; }
       }
       if (event.target.closest('.settings-row[data-toast="已打开应用权限"]')) { pageStack = ['permission']; syncPages(); }
-      if (event.target.closest('.settings-row[data-toast="语言切换将在后续版本开放"]')) { pageStack = ['language']; syncPages(); }
       if (event.target.closest('#logoutButton')) openModal(logoutModal);
       const academyRatingButton = event.target.closest('[data-academy-rating]');
       if (academyRatingButton) {
@@ -5097,8 +5082,6 @@
       }
       const loginModeButton = event.target.closest('[data-login-mode]');
       if (loginModeButton) setLoginMode(loginModeButton.dataset.loginMode);
-      if (event.target.closest('[data-language-option="ar"]')) { selectedLanguage = 'ar'; persistLanguage(); renderAccount(); showToast('已切换为阿拉伯语'); }
-      if (event.target.closest('[data-language-option="en"]')) { selectedLanguage = 'en'; persistLanguage(); renderAccount(); showToast('已切换为英语'); }
       const toastButton = event.target.closest('[data-toast]');
       if (toastButton) showToast(toastButton.dataset.toast);
       const reportButton2 = event.target.closest('[data-open-report]');
